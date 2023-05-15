@@ -1,63 +1,129 @@
+<!-- Check out https://github.com/MissMeriel/MissMeriel.github.io/ for some of the code used here
+also https://jayrobwilliams.com  -->
+
 {% include base_path %}
 
 {% if post.header.teaser %}
-  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
+{% capture teaser %}{{ post.header.teaser }}{% endcapture %}
+{% elsif post.teaser %}
+{% assign teaser = post.teaser %}
 {% else %}
-  {% assign teaser = site.teaser %}
+{% assign teaser = site.teaser %}
 {% endif %}
 
 {% if post.id %}
-  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
 {% else %}
-  {% assign title = post.title %}
+{% assign title = post.title %}
 {% endif %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    {% if include.type == "grid" and teaser %}
-      <div class="archive__item-teaser">
-        <img src=
-          {% if teaser contains "://" %}
-            "{{ teaser }}"
-          {% else %}
-            "{{ teaser | prepend: "/images/" | prepend: base_path }}"
-          {% endif %}
-          alt="">
-      </div>
+    {% if teaser %}
+    <div class="archive__item-teaser">
+    <!-- <div class="feature__item-teaser"> -->
+      <img src={% if teaser contains "://" %} "{{ teaser }}"
+        {% else %} "{{ teaser | prepend: "/images/" | prepend: base_path }}" {% endif %} alt="">
+    </div>
     {% endif %}
 
-    <h2 class="archive__item-title" itemprop="headline">
-      {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
-      {% else %}
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
-      {% endif %}
-    </h2>
-    
-    {% if post.read_time %}
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}</p>
+    <!--<h2 class="archive__item-title" itemprop="headline">
+      <a href="{{ post.access_url }}" rel="permalink">{{ title }}</a>
+    </h2>-->
+
+    <!-- {% if post.read_time %}
+    <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}</p>
+    {% endif %} -->
+
+    {% if post.collection == 'artifacts' %}
+      <p class="archive__item-excerpt" itemprop="description">
+      {{ post.excerpt | truncatewords: 50 | markdownify | remove: '<p>' | remove: '</p>' }}
+      <!-- <br> -->
+      <strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong>
+      </p>
     {% endif %}
 
-        {% if post.collection == 'teaching' %}
-          <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.collection == 'publications' %}
-          <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.date %}
-         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
+    {% if post.collection == 'publications' %}
+      {% assign authors = '' %}
+      <span  STYLE="font-variant:small-caps">
+      {% for author in post.author %}
+        {% if author == site.author.nameshort %}
+          {% assign authors_updated = authors | append: "<b>" | append: author | append: "</b>, "	%}
+        {% else %}
+          {% assign authors_updated = authors | append: author | append: ", "%}
         {% endif %}
+        {% assign authors = authors_updated %}
+      {% endfor %}
+      {{authors}}
+      </span>
+      {% if post.type=='journal' %}
+      {% assign reftext = "<em>" |append: post.title | append: "</em>" | append: ", " | append: post.journal | append: ", " | append: post.volume  | append: ", " | append: post.pages | append: " (" | append: post.year | append: ")" %}
+      {% endif %}
+      {% if post.type=='incollection' %}
+      {% assign editors = '' %}
+      {% for editor in post.editors %}
+        {% if editor == site.author.nameshort %}
+          {% assign editor_updated = editors | append: "<b>" | append: editor | append: "</b>, "	%}
+        {% else %}
+          {% assign editor_updated = editors | append: editor | append: ", "%}
+        {% endif %}
+        {% assign editors = editor_updated %}
+      {% endfor %}
+      {% assign reftext = "<em>" |append: post.title  | append: "</em>" | append: ", in " | append: post.book | append: ", edited by " | append: editors | append: " (" | append: post.publisher | append: ", "| append: post.location| append: ", " |append: post.year | append: "), pp. "| append: post.pages %}
+      {% endif %}      
+      {{reftext}}
+      <br>
+      {% if post.doi %}
+      {% assign doiurl= "https://doi.org/" | append: post.doi  %}
+     	 <a href="{{ doiurl }}"><i class="fas fa-fw fa-link zoom" aria-hidden="true"></i></a>
+      {% endif %}
+      
+      {% if post.eprints %}
+     	 <a href="{{ post.eprints }}"><i class="fas fa-fw fa-file-pdf" aria-hidden="true"></i></a>
+      {% endif %}
+      
+      {% if post.OSF %}
+       <a href="{{ post.OSF }}"><i class="ai ai-fw ai-osf" aria-hidden="true"></i></a>
+      {% endif %} 
+      
 
-    {% if post.excerpt and site.read_more != 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
-    {% elsif post.excerpt and site.read_more == 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+
+    <!-- {% if post.collection == 'publications' %}
+    <p>
+      <b>Recommended citation:</b>
+      <br />
+      {{post.citation}}
+    </p> -->
+    {% if post.downloads %}
+    <p class="archive__item-downloads" itemprop="description">
+      <b>Download:</b>
+      {% for download in post.downloads %}
+      {% if download[1] contains '://' %}
+      {% assign url = download[1] %}
+      {% else %}
+      {% assign url = base_path | append: download[1] %}
+      {% endif %}
+      [<a href="{{url}}">{{download[0] | capitalize}}</a>]
+      {% endfor %}
+    </p>
     {% endif %}
-    
-    {% if post.citation and post.paperurl %}
-      <p>Recommended citation: {{ post.citation }} <a href="{{ post.paperurl }}"><u>{{ post.paperurl }}</u></a></p>
-    {% elsif post.citation %}
-      <p>Recommended citation: {{ post.citation }} </p>
-    {% elsif post.paperurl %}
-      <p>Download <a href=" {{ post.paperurl }} "><u>here</u></a></p>
+    {% elsif post.collection == 'artifacts' %}
+      {% if post.links %}
+      <p class="archive__item-links" itemprop="description">
+        <b>Links:</b>
+        {% for link in post.links %}
+        {% if link[1] contains '://' %}
+        {% assign url = link[1] %}
+        {% else %}
+        {% assign url = base_path | append: link[1] %}
+        {% endif %}
+        [<a href="{{url}}">{{link[0] | capitalize}}</a>]
+        {% endfor %}
+      </p>
+      {% endif %}
+    {% endif %}
     {% endif %}
 
   </article>
