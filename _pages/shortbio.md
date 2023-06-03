@@ -16,8 +16,8 @@ Education
 
 Employment
 ======
-* 2018 – present: Associate Professor in Applied Mathematics, University of Nottingham, UK, 2018	
-* 2011 – 2018: Assistant Professor in Applied Mathematics, University of Nottingham, UK, 2011
-* 2009 – 2011: Leverhulme Early Career Fellow, University of Nottingham, UK, 2009
-* 2006 – 2009: EPSRC postdoctoral research fellow, University of Nottingham, UK, 2006
+* 2018 – present: Associate Professor in Applied Mathematics, University of Nottingham, UK
+* 2011 – 2018: Assistant Professor in Applied Mathematics, University of Nottingham, UK
+* 2009 – 2011: Leverhulme Early Career Fellow, University of Nottingham, UK
+* 2006 – 2009: EPSRC postdoctoral research fellow, University of Nottingham, UK
 * 2005 – 2006: Postdoctoral research assistant, Hahn-Meitner Institute, Berlin, Germany
