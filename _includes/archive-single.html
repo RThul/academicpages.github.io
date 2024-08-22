@@ -61,6 +61,9 @@ also https://jayrobwilliams.com  -->
       {% if post.type=='journal' %}
       {% assign reftext = "<em>" |append: post.title | append: "</em>" | append: ", " | append: post.journal | append: ", " | append: post.volume  | append: ", " | append: post.pages | append: " (" | append: post.year | append: ")" %}
       {% endif %}
+      {% if post.type=='journal in press' %}
+      {% assign reftext = "<em>" |append: post.title | append: "</em>" | append: ", " | append: post.journal | append: " (in press)" %}
+      {% endif %}
       {% if post.type=='incollection' %}
       {% assign editors = '' %}
       {% for editor in post.editors %}

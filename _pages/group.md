@@ -13,11 +13,15 @@ Current PhD students
 * Emily Claughton: *Language dynamics in networks*
 * Arwa Alfreah: *Learning polysemous words in the L2*
 * Shatha Alsaif: *Language learning apps*
-* Ghozayel Elotteebi: *The role of input modes in the acquisition of Arabic and English idioms in L1 adults, L1 children and L2 English adults*
+
+Current Postdocs
+======
+Joseph Marsh: *Statistical Analysis and Modelling in Psycholinguistics*
 
 
 Past PhD students
 ======
+* Ghozayel Elotteebi: *The role of input modes in the acquisition of Arabic and English idioms in L1 adults, L1 children and L2 English adults* (2024)
 * Sunil Modhara: *Brain dynamics from mathematical perspectives: a study of neural patterning* (2022)
 * Jake Powell: *Statistical modelling of Ca<sup>2+</sup> oscillations in the presence of single cell heterogeneity* (2022)
 * Hayley Mills: *Plant calcium dynamics: signalling the way to sustainable food production* (2021)
