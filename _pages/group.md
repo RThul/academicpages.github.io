@@ -10,6 +10,7 @@ redirect_from:
 
 Current PhD students
 ======
+* Shiyang Zheng: *Modelling formulaic language: processing and acquisition*
 * Emily Claughton: *Language dynamics in networks*
 * Arwa Alfreah: *Learning polysemous words in the L2*
 * Shatha Alsaif: *Language learning apps*
